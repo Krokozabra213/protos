@@ -26,6 +26,7 @@ message RefreshResponse {
 
 message LogoutRequest {
   string refresh_token = 1;
+  int32 app_id = 2;
 }
 
 message LogoutResponse {

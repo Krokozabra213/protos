@@ -136,6 +136,7 @@ func (x *RefreshResponse) GetRefreshToken() string {
 type LogoutRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	AppId         int32                  `protobuf:"varint,2,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -175,6 +176,13 @@ func (x *LogoutRequest) GetRefreshToken() string {
 		return x.RefreshToken
 	}
 	return ""
+}
+
+func (x *LogoutRequest) GetAppId() int32 {
+	if x != nil {
+		return x.AppId
+	}
+	return 0
 }
 
 type LogoutResponse struct {
@@ -619,9 +627,10 @@ const file_sso_sso_proto_rawDesc = "" +
 	"expRefresh\"Y\n" +
 	"\x0fRefreshResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"4\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"K\n" +
 	"\rLogoutRequest\x12#\n" +
-	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"*\n" +
+	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\x12\x15\n" +
+	"\x06app_id\x18\x02 \x01(\x05R\x05appId\"*\n" +
 	"\x0eLogoutResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"(\n" +
 	"\x0fAppSaultRequest\x12\x15\n" +
