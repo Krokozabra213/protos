@@ -24,8 +24,6 @@ const (
 type RefreshRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	ExpAccess     int64                  `protobuf:"varint,2,opt,name=exp_access,json=expAccess,proto3" json:"exp_access,omitempty"`    // время жизни access токена в секундах
-	ExpRefresh    int64                  `protobuf:"varint,3,opt,name=exp_refresh,json=expRefresh,proto3" json:"exp_refresh,omitempty"` // время жизни refresh токена в секундах
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -65,20 +63,6 @@ func (x *RefreshRequest) GetRefreshToken() string {
 		return x.RefreshToken
 	}
 	return ""
-}
-
-func (x *RefreshRequest) GetExpAccess() int64 {
-	if x != nil {
-		return x.ExpAccess
-	}
-	return 0
-}
-
-func (x *RefreshRequest) GetExpRefresh() int64 {
-	if x != nil {
-		return x.ExpRefresh
-	}
-	return 0
 }
 
 type RefreshResponse struct {
@@ -136,7 +120,6 @@ func (x *RefreshResponse) GetRefreshToken() string {
 type LogoutRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	AppId         int32                  `protobuf:"varint,2,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -176,13 +159,6 @@ func (x *LogoutRequest) GetRefreshToken() string {
 		return x.RefreshToken
 	}
 	return ""
-}
-
-func (x *LogoutRequest) GetAppId() int32 {
-	if x != nil {
-		return x.AppId
-	}
-	return 0
 }
 
 type LogoutResponse struct {
@@ -229,28 +205,28 @@ func (x *LogoutResponse) GetSuccess() bool {
 	return false
 }
 
-// перед стартом, приложение делает запрос на получение соли для генерации и валидирования jwt
-type AppSaultRequest struct {
+// перед стартом, приложение делает запрос на получение publickey для генерации и валидирования jwt
+type PublicKeyRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AppId         int32                  `protobuf:"varint,1,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *AppSaultRequest) Reset() {
-	*x = AppSaultRequest{}
+func (x *PublicKeyRequest) Reset() {
+	*x = PublicKeyRequest{}
 	mi := &file_sso_sso_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *AppSaultRequest) String() string {
+func (x *PublicKeyRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AppSaultRequest) ProtoMessage() {}
+func (*PublicKeyRequest) ProtoMessage() {}
 
-func (x *AppSaultRequest) ProtoReflect() protoreflect.Message {
+func (x *PublicKeyRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_sso_sso_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -262,39 +238,39 @@ func (x *AppSaultRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AppSaultRequest.ProtoReflect.Descriptor instead.
-func (*AppSaultRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use PublicKeyRequest.ProtoReflect.Descriptor instead.
+func (*PublicKeyRequest) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *AppSaultRequest) GetAppId() int32 {
+func (x *PublicKeyRequest) GetAppId() int32 {
 	if x != nil {
 		return x.AppId
 	}
 	return 0
 }
 
-type AppSaultResponse struct {
+type PublicKeyResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Sault         string                 `protobuf:"bytes,1,opt,name=sault,proto3" json:"sault,omitempty"`
+	PublicKey     string                 `protobuf:"bytes,1,opt,name=public_key,json=publicKey,proto3" json:"public_key,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *AppSaultResponse) Reset() {
-	*x = AppSaultResponse{}
+func (x *PublicKeyResponse) Reset() {
+	*x = PublicKeyResponse{}
 	mi := &file_sso_sso_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *AppSaultResponse) String() string {
+func (x *PublicKeyResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AppSaultResponse) ProtoMessage() {}
+func (*PublicKeyResponse) ProtoMessage() {}
 
-func (x *AppSaultResponse) ProtoReflect() protoreflect.Message {
+func (x *PublicKeyResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_sso_sso_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -306,14 +282,14 @@ func (x *AppSaultResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AppSaultResponse.ProtoReflect.Descriptor instead.
-func (*AppSaultResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use PublicKeyResponse.ProtoReflect.Descriptor instead.
+func (*PublicKeyResponse) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *AppSaultResponse) GetSault() string {
+func (x *PublicKeyResponse) GetPublicKey() string {
 	if x != nil {
-		return x.Sault
+		return x.PublicKey
 	}
 	return ""
 }
@@ -618,25 +594,21 @@ var File_sso_sso_proto protoreflect.FileDescriptor
 
 const file_sso_sso_proto_rawDesc = "" +
 	"\n" +
-	"\rsso/sso.proto\x12\x04auth\"u\n" +
+	"\rsso/sso.proto\x12\x04auth\"5\n" +
 	"\x0eRefreshRequest\x12#\n" +
-	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\x12\x1d\n" +
-	"\n" +
-	"exp_access\x18\x02 \x01(\x03R\texpAccess\x12\x1f\n" +
-	"\vexp_refresh\x18\x03 \x01(\x03R\n" +
-	"expRefresh\"Y\n" +
+	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"Y\n" +
 	"\x0fRefreshResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"K\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"4\n" +
 	"\rLogoutRequest\x12#\n" +
-	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\x12\x15\n" +
-	"\x06app_id\x18\x02 \x01(\x05R\x05appId\"*\n" +
+	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"*\n" +
 	"\x0eLogoutResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess\"(\n" +
-	"\x0fAppSaultRequest\x12\x15\n" +
-	"\x06app_id\x18\x01 \x01(\x05R\x05appId\"(\n" +
-	"\x10AppSaultResponse\x12\x14\n" +
-	"\x05sault\x18\x01 \x01(\tR\x05sault\"I\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\")\n" +
+	"\x10PublicKeyRequest\x12\x15\n" +
+	"\x06app_id\x18\x01 \x01(\x05R\x05appId\"2\n" +
+	"\x11PublicKeyResponse\x12\x1d\n" +
+	"\n" +
+	"public_key\x18\x01 \x01(\tR\tpublicKey\"I\n" +
 	"\x0fRegisterRequest\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"+\n" +
@@ -652,12 +624,12 @@ const file_sso_sso_proto_rawDesc = "" +
 	"\x0eIsAdminRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x03R\x06userId\",\n" +
 	"\x0fIsAdminResponse\x12\x19\n" +
-	"\bis_admin\x18\x01 \x01(\bR\aisAdmin2\xd3\x02\n" +
+	"\bis_admin\x18\x01 \x01(\bR\aisAdmin2\xd9\x02\n" +
 	"\x04Auth\x129\n" +
 	"\bRegister\x12\x15.auth.RegisterRequest\x1a\x16.auth.RegisterResponse\x120\n" +
 	"\x05Login\x12\x12.auth.LoginRequest\x1a\x13.auth.LoginResponse\x126\n" +
-	"\aIsAdmin\x12\x14.auth.IsAdminRequest\x1a\x15.auth.IsAdminResponse\x129\n" +
-	"\bAppSault\x12\x15.auth.AppSaultRequest\x1a\x16.auth.AppSaultResponse\x123\n" +
+	"\aIsAdmin\x12\x14.auth.IsAdminRequest\x1a\x15.auth.IsAdminResponse\x12?\n" +
+	"\fGetPublicKey\x12\x16.auth.PublicKeyRequest\x1a\x17.auth.PublicKeyResponse\x123\n" +
 	"\x06Logout\x12\x13.auth.LogoutRequest\x1a\x14.auth.LogoutResponse\x126\n" +
 	"\aRefresh\x12\x14.auth.RefreshRequest\x1a\x15.auth.RefreshResponseB0Z.github.com/Krokozabra213/protos/gen/go/sso;ssob\x06proto3"
 
@@ -675,30 +647,30 @@ func file_sso_sso_proto_rawDescGZIP() []byte {
 
 var file_sso_sso_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_sso_sso_proto_goTypes = []any{
-	(*RefreshRequest)(nil),   // 0: auth.RefreshRequest
-	(*RefreshResponse)(nil),  // 1: auth.RefreshResponse
-	(*LogoutRequest)(nil),    // 2: auth.LogoutRequest
-	(*LogoutResponse)(nil),   // 3: auth.LogoutResponse
-	(*AppSaultRequest)(nil),  // 4: auth.AppSaultRequest
-	(*AppSaultResponse)(nil), // 5: auth.AppSaultResponse
-	(*RegisterRequest)(nil),  // 6: auth.RegisterRequest
-	(*RegisterResponse)(nil), // 7: auth.RegisterResponse
-	(*LoginRequest)(nil),     // 8: auth.LoginRequest
-	(*LoginResponse)(nil),    // 9: auth.LoginResponse
-	(*IsAdminRequest)(nil),   // 10: auth.IsAdminRequest
-	(*IsAdminResponse)(nil),  // 11: auth.IsAdminResponse
+	(*RefreshRequest)(nil),    // 0: auth.RefreshRequest
+	(*RefreshResponse)(nil),   // 1: auth.RefreshResponse
+	(*LogoutRequest)(nil),     // 2: auth.LogoutRequest
+	(*LogoutResponse)(nil),    // 3: auth.LogoutResponse
+	(*PublicKeyRequest)(nil),  // 4: auth.PublicKeyRequest
+	(*PublicKeyResponse)(nil), // 5: auth.PublicKeyResponse
+	(*RegisterRequest)(nil),   // 6: auth.RegisterRequest
+	(*RegisterResponse)(nil),  // 7: auth.RegisterResponse
+	(*LoginRequest)(nil),      // 8: auth.LoginRequest
+	(*LoginResponse)(nil),     // 9: auth.LoginResponse
+	(*IsAdminRequest)(nil),    // 10: auth.IsAdminRequest
+	(*IsAdminResponse)(nil),   // 11: auth.IsAdminResponse
 }
 var file_sso_sso_proto_depIdxs = []int32{
 	6,  // 0: auth.Auth.Register:input_type -> auth.RegisterRequest
 	8,  // 1: auth.Auth.Login:input_type -> auth.LoginRequest
 	10, // 2: auth.Auth.IsAdmin:input_type -> auth.IsAdminRequest
-	4,  // 3: auth.Auth.AppSault:input_type -> auth.AppSaultRequest
+	4,  // 3: auth.Auth.GetPublicKey:input_type -> auth.PublicKeyRequest
 	2,  // 4: auth.Auth.Logout:input_type -> auth.LogoutRequest
 	0,  // 5: auth.Auth.Refresh:input_type -> auth.RefreshRequest
 	7,  // 6: auth.Auth.Register:output_type -> auth.RegisterResponse
 	9,  // 7: auth.Auth.Login:output_type -> auth.LoginResponse
 	11, // 8: auth.Auth.IsAdmin:output_type -> auth.IsAdminResponse
-	5,  // 9: auth.Auth.AppSault:output_type -> auth.AppSaultResponse
+	5,  // 9: auth.Auth.GetPublicKey:output_type -> auth.PublicKeyResponse
 	3,  // 10: auth.Auth.Logout:output_type -> auth.LogoutResponse
 	1,  // 11: auth.Auth.Refresh:output_type -> auth.RefreshResponse
 	6,  // [6:12] is the sub-list for method output_type
