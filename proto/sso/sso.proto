@@ -8,15 +8,13 @@ service Auth {
   rpc Register (RegisterRequest) returns (RegisterResponse);
   rpc Login (LoginRequest) returns (LoginResponse);
   rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
-  rpc AppSault (AppSaultRequest) returns (AppSaultResponse);
+  rpc GetPublicKey (PublicKeyRequest) returns (PublicKeyResponse);
   rpc Logout (LogoutRequest) returns (LogoutResponse);
   rpc Refresh(RefreshRequest) returns (RefreshResponse);
 }
 
 message RefreshRequest {
   string refresh_token = 1;
-  int64 exp_access = 2; // время жизни access токена в секундах
-  int64 exp_refresh = 3; // время жизни refresh токена в секундах
 }
 
 message RefreshResponse {
@@ -26,20 +24,19 @@ message RefreshResponse {
 
 message LogoutRequest {
   string refresh_token = 1;
-  int32 app_id = 2;
 }
 
 message LogoutResponse {
   bool success = 1;
 }
 
-// перед стартом, приложение делает запрос на получение соли для генерации и валидирования jwt
-message AppSaultRequest {
+//перед стартом, приложение делает запрос на получение publickey для генерации и валидирования jwt
+message PublicKeyRequest {
   int32 app_id = 1;
 }
 
-message AppSaultResponse {
-  string sault = 1;
+message PublicKeyResponse {
+  string public_key = 1;
 }
 
 message RegisterRequest {
