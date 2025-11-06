@@ -57,7 +57,27 @@ func (m *RefreshRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for RefreshToken
+	if utf8.RuneCountInString(m.GetRefreshToken()) < 10 {
+		err := RefreshRequestValidationError{
+			field:  "RefreshToken",
+			reason: "value length must be at least 10 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_RefreshRequest_RefreshToken_Pattern.MatchString(m.GetRefreshToken()) {
+		err := RefreshRequestValidationError{
+			field:  "RefreshToken",
+			reason: "value does not match regex pattern \"^[A-Za-z0-9-_=]+[.][A-Za-z0-9-_=]+[.]?[A-Za-z0-9-_.+/=]*$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return RefreshRequestMultiError(errors)
@@ -137,6 +157,8 @@ var _ interface {
 	ErrorName() string
 } = RefreshRequestValidationError{}
 
+var _RefreshRequest_RefreshToken_Pattern = regexp.MustCompile("^[A-Za-z0-9-_=]+[.][A-Za-z0-9-_=]+[.]?[A-Za-z0-9-_.+/=]*$")
+
 // Validate checks the field values on RefreshResponse with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -159,9 +181,27 @@ func (m *RefreshResponse) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for AccessToken
+	if utf8.RuneCountInString(m.GetAccessToken()) < 1 {
+		err := RefreshResponseValidationError{
+			field:  "AccessToken",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for RefreshToken
+	if utf8.RuneCountInString(m.GetRefreshToken()) < 1 {
+		err := RefreshResponseValidationError{
+			field:  "RefreshToken",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return RefreshResponseMultiError(errors)
@@ -263,7 +303,16 @@ func (m *LogoutRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for RefreshToken
+	if utf8.RuneCountInString(m.GetRefreshToken()) < 1 {
+		err := LogoutRequestValidationError{
+			field:  "RefreshToken",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return LogoutRequestMultiError(errors)
@@ -467,7 +516,16 @@ func (m *PublicKeyRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for AppId
+	if m.GetAppId() <= 0 {
+		err := PublicKeyRequestValidationError{
+			field:  "AppId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return PublicKeyRequestMultiError(errors)
@@ -569,7 +627,16 @@ func (m *PublicKeyResponse) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for PublicKey
+	if utf8.RuneCountInString(m.GetPublicKey()) < 1 {
+		err := PublicKeyResponseValidationError{
+			field:  "PublicKey",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return PublicKeyResponseMultiError(errors)
@@ -695,7 +762,16 @@ func (m *RegisterRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for Password
+	if l := utf8.RuneCountInString(m.GetPassword()); l < 8 || l > 72 {
+		err := RegisterRequestValidationError{
+			field:  "Password",
+			reason: "value length must be between 8 and 72 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return RegisterRequestMultiError(errors)
@@ -799,7 +875,16 @@ func (m *RegisterResponse) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for UserId
+	if m.GetUserId() <= 0 {
+		err := RegisterResponseValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return RegisterResponseMultiError(errors)
@@ -901,11 +986,49 @@ func (m *LoginRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Username
+	if l := utf8.RuneCountInString(m.GetUsername()); l < 3 || l > 50 {
+		err := LoginRequestValidationError{
+			field:  "Username",
+			reason: "value length must be between 3 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Password
+	if !_LoginRequest_Username_Pattern.MatchString(m.GetUsername()) {
+		err := LoginRequestValidationError{
+			field:  "Username",
+			reason: "value does not match regex pattern \"^[a-zA-Z][a-zA-Z0-9_]*$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for AppId
+	if utf8.RuneCountInString(m.GetPassword()) < 1 {
+		err := LoginRequestValidationError{
+			field:  "Password",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetAppId() <= 0 {
+		err := LoginRequestValidationError{
+			field:  "AppId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return LoginRequestMultiError(errors)
@@ -984,6 +1107,8 @@ var _ interface {
 	ErrorName() string
 } = LoginRequestValidationError{}
 
+var _LoginRequest_Username_Pattern = regexp.MustCompile("^[a-zA-Z][a-zA-Z0-9_]*$")
+
 // Validate checks the field values on LoginResponse with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -1006,9 +1131,27 @@ func (m *LoginResponse) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for AccessToken
+	if utf8.RuneCountInString(m.GetAccessToken()) < 1 {
+		err := LoginResponseValidationError{
+			field:  "AccessToken",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for RefreshToken
+	if utf8.RuneCountInString(m.GetRefreshToken()) < 1 {
+		err := LoginResponseValidationError{
+			field:  "RefreshToken",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return LoginResponseMultiError(errors)
@@ -1110,7 +1253,16 @@ func (m *IsAdminRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for UserId
+	if m.GetUserId() <= 0 {
+		err := IsAdminRequestValidationError{
+			field:  "UserId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return IsAdminRequestMultiError(errors)

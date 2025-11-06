@@ -17,8 +17,8 @@ service Auth {
 message RefreshRequest {
   string refresh_token = 1 [
     (validate.rules).string = {
-      min_len: 1, 
-      pattern: "^[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$"  // JWT-like формат
+      min_len: 10,
+      pattern: "^[A-Za-z0-9-_=]+[.][A-Za-z0-9-_=]+[.]?[A-Za-z0-9-_.+/=]*$"
     }
   ];
 }
@@ -67,8 +67,7 @@ message RegisterRequest {
   string password = 2 [
     (validate.rules).string = {
       min_len: 8,
-      max_len: 72,    // Максимум 72 символа (стандарт для bcrypt)
-      pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]"  // Минимум 1 заглавная, 1 строчная, 1 цифра, 1 спецсимвол
+      max_len: 72
     }
   ];
 }
@@ -90,11 +89,7 @@ message LoginRequest {
     }
   ];
   string password = 2 [
-    (validate.rules).string = {
-      min_len: 8,
-      max_len: 72,
-      pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]"
-    }
+    (validate.rules).string.min_len = 1
   ];
   int32 app_id = 3 [
     (validate.rules).int32 = {

@@ -594,35 +594,36 @@ var File_proto_sso_sso_proto protoreflect.FileDescriptor
 
 const file_proto_sso_sso_proto_rawDesc = "" +
 	"\n" +
-	"\x13proto/sso/sso.proto\x12\x04auth\x1a+protoc-gen-validate/validate/validate.proto\"5\n" +
-	"\x0eRefreshRequest\x12#\n" +
-	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"Y\n" +
-	"\x0fRefreshResponse\x12!\n" +
-	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"4\n" +
-	"\rLogoutRequest\x12#\n" +
-	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"*\n" +
+	"\x13proto/sso/sso.proto\x12\x04auth\x1a+protoc-gen-validate/validate/validate.proto\"y\n" +
+	"\x0eRefreshRequest\x12g\n" +
+	"\rrefresh_token\x18\x01 \x01(\tBB\xfaB?r=\x10\n" +
+	"29^[A-Za-z0-9-_=]+[.][A-Za-z0-9-_=]+[.]?[A-Za-z0-9-_.+/=]*$R\frefreshToken\"k\n" +
+	"\x0fRefreshResponse\x12*\n" +
+	"\faccess_token\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\vaccessToken\x12,\n" +
+	"\rrefresh_token\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\frefreshToken\"=\n" +
+	"\rLogoutRequest\x12,\n" +
+	"\rrefresh_token\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\frefreshToken\"*\n" +
 	"\x0eLogoutResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess\")\n" +
-	"\x10PublicKeyRequest\x12\x15\n" +
-	"\x06app_id\x18\x01 \x01(\x05R\x05appId\"2\n" +
-	"\x11PublicKeyResponse\x12\x1d\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"2\n" +
+	"\x10PublicKeyRequest\x12\x1e\n" +
+	"\x06app_id\x18\x01 \x01(\x05B\a\xfaB\x04\x1a\x02 \x00R\x05appId\";\n" +
+	"\x11PublicKeyResponse\x12&\n" +
 	"\n" +
-	"public_key\x18\x01 \x01(\tR\tpublicKey\"m\n" +
+	"public_key\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\tpublicKey\"x\n" +
 	"\x0fRegisterRequest\x12>\n" +
-	"\busername\x18\x01 \x01(\tB\"\xfaB\x1fr\x1d\x10\x03\x1822\x17^[a-zA-Z][a-zA-Z0-9_]*$R\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\"+\n" +
-	"\x10RegisterResponse\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x03R\x06userId\"]\n" +
-	"\fLoginRequest\x12\x1a\n" +
-	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\x12\x15\n" +
-	"\x06app_id\x18\x03 \x01(\x05R\x05appId\"W\n" +
-	"\rLoginResponse\x12!\n" +
-	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\")\n" +
-	"\x0eIsAdminRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x03R\x06userId\",\n" +
+	"\busername\x18\x01 \x01(\tB\"\xfaB\x1fr\x1d\x10\x03\x1822\x17^[a-zA-Z][a-zA-Z0-9_]*$R\busername\x12%\n" +
+	"\bpassword\x18\x02 \x01(\tB\t\xfaB\x06r\x04\x10\b\x18HR\bpassword\"4\n" +
+	"\x10RegisterResponse\x12 \n" +
+	"\auser_id\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userId\"\x93\x01\n" +
+	"\fLoginRequest\x12>\n" +
+	"\busername\x18\x01 \x01(\tB\"\xfaB\x1fr\x1d\x10\x03\x1822\x17^[a-zA-Z][a-zA-Z0-9_]*$R\busername\x12#\n" +
+	"\bpassword\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\bpassword\x12\x1e\n" +
+	"\x06app_id\x18\x03 \x01(\x05B\a\xfaB\x04\x1a\x02 \x00R\x05appId\"i\n" +
+	"\rLoginResponse\x12*\n" +
+	"\faccess_token\x18\x01 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\vaccessToken\x12,\n" +
+	"\rrefresh_token\x18\x02 \x01(\tB\a\xfaB\x04r\x02\x10\x01R\frefreshToken\"2\n" +
+	"\x0eIsAdminRequest\x12 \n" +
+	"\auser_id\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userId\",\n" +
 	"\x0fIsAdminResponse\x12\x19\n" +
 	"\bis_admin\x18\x01 \x01(\bR\aisAdmin2\xd9\x02\n" +
 	"\x04Auth\x129\n" +
