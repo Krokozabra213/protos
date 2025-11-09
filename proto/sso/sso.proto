@@ -5,15 +5,20 @@ option go_package = "github.com/Krokozabra213/protos/gen/go/sso;sso";
 
 import "protoc-gen-validate/validate/validate.proto";
 
+
 service Auth {
   rpc Register (RegisterRequest) returns (RegisterResponse);
   rpc Login (LoginRequest) returns (LoginResponse);
   rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
   rpc GetPublicKey (PublicKeyRequest) returns (PublicKeyResponse);
   rpc Logout (LogoutRequest) returns (LogoutResponse);
-  rpc Refresh(RefreshRequest) returns (RefreshResponse);
+  rpc Refresh (RefreshRequest) returns (RefreshResponse);
 }
 
+
+
+
+// auth service
 message RefreshRequest {
   string refresh_token = 1 [
     (validate.rules).string = {

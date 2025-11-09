@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package chat;
+option go_package = "github.com/Krokozabra213/protos/gen/go/chat;chat";
+
+service Chat {
+  rpc ChatStream (stream ClientMessage) returns (stream ServerMessage);
+}
+
+
+// chat service
+message ServerMessage {
+  oneof type {
+    UserJoined joined = 1;
+    ChatMessage send_message = 2;
+    UserLeft left = 3;
+  }
+}
+
+message UserJoined {
+  int64 user_id = 1;
+  string username = 2;
+}
+
+message ChatMessage {
+  int64 user_id = 1;
+  string username = 2;
+  string content = 3;
+  int64 timestamp = 4;
+}
+
+message UserLeft {
+  int64 user_id = 1;
+  string username = 2;
+}
+
+
+message ClientMessage {
+  oneof type {
+    JoinMessage join = 1;
+    SendMessageAction send_message = 2;
+    LeaveChat leave = 3;
+  }
+}
+
+message JoinMessage {
+  int64 user_id = 1;
+  string username = 2;
+}
+
+message SendMessageAction {
+  string content = 1;
+}
+
+message LeaveChat {
+  int64 user_id = 1;
+  string username = 2;
+}

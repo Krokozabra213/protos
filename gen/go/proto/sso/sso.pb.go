@@ -7,13 +7,12 @@
 package sso
 
 import (
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
-
 	_ "github.com/envoyproxy/protoc-gen-validate/validate"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	reflect "reflect"
+	sync "sync"
+	unsafe "unsafe"
 )
 
 const (
@@ -23,6 +22,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// auth service
 type RefreshRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
